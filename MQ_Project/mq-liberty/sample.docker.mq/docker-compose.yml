@@ -1,0 +1,24 @@
+ version: '3.3'
+ services:
+
+   mqfull:
+     image: sampledockermq_mqfull:1.0
+     environment:
+       LICENSE: accept
+       MQ_QMGR_NAME: QM1
+     # MQSNOAUT - This environment variable disables all authorization checking in MQ. 
+     # This is not recommended for production environments
+       MQSNOAUT: "yes"
+     ports:
+       - "1414:1414"
+       - "30443:9443"
+   sender:
+     image: sampledockermq_sender:1.0
+     ports:
+       - "31080:9080"
+       - "31443:9443"
+   receiver:
+     image: sampledockermq_receiver:1.0
+     ports:
+       - "31081:9080"
+       - "31444:9443"
